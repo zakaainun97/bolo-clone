@@ -194,6 +194,13 @@ function scrollVariantToCenter(variant) {
   document.querySelector(".variant-slider").scrollLeft = scrollPosition;
 }
 
+// Mengatur semua varian tidak aktif secara default
+function initializeVariants() {
+  currentVariantIndex = null; // Tidak ada varian yang aktif
+  updateActiveVariant(); // Pastikan tidak ada yang aktif saat halaman dimuat
+}
+
+// Menambahkan event listener untuk setiap varian
 variants.forEach((variant, index) => {
   variant.addEventListener("click", function () {
     const imageSrc = this.getAttribute("data-src");
@@ -202,6 +209,9 @@ variants.forEach((variant, index) => {
     updateActiveVariant(); // Update varian yang aktif
   });
 });
+
+// Panggil fungsi initializeVariants saat halaman dimuat
+initializeVariants();
 
 // Fungsi geser slider varian
 const variantRow = document.querySelector(".variant-row");
@@ -421,53 +431,3 @@ fullscreenImage.addEventListener("touchmove", function (event) {
     }
   }
 });
-
-// Function to smoothly slide the main thumbnail to the next image
-function updateMainImage(index) {
-  mainImage.src = thumbnails[index].getAttribute("data-src");
-  thumbnails.forEach((img) => (img.style.border = "none"));
-  thumbnails[index].style.border = "2px solid black"; // Tambahkan border aktif
-}
-
-// Move slider smoothly to the selected thumbnail
-function slideThumbnailRowToCenter(index) {
-  const thumbnailWidth = thumbnails[0].clientWidth; // Lebar satu thumbnail
-  const thumbnailRowWidth = thumbnailRow.clientWidth;
-  const totalThumbnails = thumbnails.length;
-
-  const offset =
-    index * thumbnailWidth - thumbnailRowWidth / 2 + thumbnailWidth / 2;
-
-  // Batasi agar tidak melebihi ukuran maksimal dan minimal row
-  const maxScroll = thumbnailWidth * totalThumbnails - thumbnailRowWidth;
-  const translateX = Math.max(0, Math.min(maxScroll, offset));
-
-  thumbnailRow.style.transform = `translateX(-${translateX}px)`;
-}
-
-// Update the main image slider smoothly
-function slideMainThumbnail(index) {
-  const totalImages = thumbnails.length;
-  const mainWidth = mainImage.clientWidth;
-
-  // Geser gambar berdasarkan index
-  mainImage.style.transform = `translateX(-${index * mainWidth}px)`;
-}
-
-// Ketika thumbnail diklik, update main image dan slide row
-thumbnails.forEach((thumbnail, index) => {
-  thumbnail.addEventListener("click", () => {
-    updateMainImage(index);
-    slideThumbnailRowToCenter(index); // Pusatkan thumbnail aktif
-  });
-});
-
-// Ketika geser main thumbnail, ganti gambar
-function slideMainThumbnailNext() {
-  currentIndex = (currentIndex + 1) % thumbnails.length;
-  updateMainImage(currentIndex);
-  slideMainThumbnail(currentIndex); // Geser thumbnail secara smooth
-}
-
-// Implementasikan logika swipe gesture pada main thumbnail jika diinginkan
-// (sama dengan yang ada di galeri fullscreen sebelumnya)
