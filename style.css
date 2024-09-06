@@ -30,6 +30,10 @@ body {
   height: 100%;
   object-fit: cover;
 }
+/* Main Thumbnail Styles */
+.main-thumbnail img {
+  transition: transform 0.5s ease; /* Transisi halus saat mengganti gambar */
+}
 
 /* Thumbnail slider container */
 .thumbnail-slider {
@@ -40,7 +44,11 @@ body {
 .thumbnail-row {
   display: flex;
   gap: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
+}
+
+.thumbnail-row img {
+  transition: transform 0.5s ease, border 0.5s ease; /* Transisi halus untuk border aktif */
 }
 
 .thumbnail {
@@ -71,8 +79,11 @@ body {
 
 .variant-row {
   display: flex;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   cursor: pointer;
+}
+.variant-row img {
+  transition: transform 0.5s ease, border 0.5s ease; /* Transisi halus untuk border aktif */
 }
 
 .variant {
