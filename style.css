@@ -36,6 +36,10 @@ body {
 .main-thumbnail img.fade-out {
   opacity: 0; /* Gambar menghilang saat diganti */
 }
+/* Main Thumbnail Styles */
+.main-thumbnail img {
+  transition: transform 0.5s ease; /* Transisi halus saat mengganti gambar */
+}
 
 /* Thumbnail slider container */
 .thumbnail-slider {
