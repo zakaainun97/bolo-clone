@@ -194,6 +194,13 @@ function scrollVariantToCenter(variant) {
   document.querySelector(".variant-slider").scrollLeft = scrollPosition;
 }
 
+// Mengatur semua varian tidak aktif secara default
+function initializeVariants() {
+  currentVariantIndex = null; // Tidak ada varian yang aktif
+  updateActiveVariant(); // Pastikan tidak ada yang aktif saat halaman dimuat
+}
+
+// Menambahkan event listener untuk setiap varian
 variants.forEach((variant, index) => {
   variant.addEventListener("click", function () {
     const imageSrc = this.getAttribute("data-src");
@@ -202,6 +209,9 @@ variants.forEach((variant, index) => {
     updateActiveVariant(); // Update varian yang aktif
   });
 });
+
+// Panggil fungsi initializeVariants saat halaman dimuat
+initializeVariants();
 
 // Fungsi geser slider varian
 const variantRow = document.querySelector(".variant-row");
